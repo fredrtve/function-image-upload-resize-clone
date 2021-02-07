@@ -5,6 +5,8 @@
     "FUNCTIONS_WORKER_RUNTIME": "dotnet",
     "THUMBNAIL_CONTAINER_NAME": "thumbnails",
     "THUMBNAIL_WIDTH": "100",
+    "VIEW_IMAGE_CONTAINER_NAME": "viewimages",
+    "VIEW_IMAGE_WIDTH": "1200",
     "datatype": "binary"
   }
 }

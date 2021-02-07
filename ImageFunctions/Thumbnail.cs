@@ -27,7 +27,7 @@ using System.Threading.Tasks;
 
 namespace ImageFunctions
 {
-    public static class ViewImage
+    public static class Thumbnail
     {
         private static readonly string BLOB_STORAGE_CONNECTION_STRING = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
 
@@ -70,7 +70,7 @@ namespace ImageFunctions
             return encoder;
         }
 
-        [FunctionName("Thumbnail")]
+        [FunctionName("ViewImage")]
         public static async Task Run(
             [EventGridTrigger]EventGridEvent eventGridEvent,
             [Blob("{data.url}", FileAccess.Read)] Stream input,
@@ -86,8 +86,8 @@ namespace ImageFunctions
 
                     if (encoder != null)
                     {
-                        var thumbnailWidth = Convert.ToInt32(Environment.GetEnvironmentVariable("VIEW_IMAGE_WIDTH"));
-                        var thumbContainerName = Environment.GetEnvironmentVariable("VIEW_IMAGE_CONTAINER_NAME");
+                        var thumbnailWidth = Convert.ToInt32(Environment.GetEnvironmentVariable("THUMBNAIL_WIDTH"));
+                        var thumbContainerName = Environment.GetEnvironmentVariable("THUMBNAIL_CONTAINER_NAME");
                         var blobServiceClient = new BlobServiceClient(BLOB_STORAGE_CONNECTION_STRING);
                         var blobContainerClient = blobServiceClient.GetBlobContainerClient(thumbContainerName);
                         var blobName = GetBlobNameFromUrl(createdEvent.Url);
