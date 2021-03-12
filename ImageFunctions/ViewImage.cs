@@ -70,7 +70,7 @@ namespace ImageFunctions
             return encoder;
         }
 
-        [FunctionName("Thumbnail")]
+        [FunctionName("ViewImage")]
         public static async Task Run(
             [EventGridTrigger]EventGridEvent eventGridEvent,
             [Blob("{data.url}", FileAccess.Read)] Stream input,
@@ -95,8 +95,8 @@ namespace ImageFunctions
                         using (var output = new MemoryStream())
                         using (Image<Rgba32> image = Image.Load(input))
                         {
-                            var divisor = image.Width / thumbnailWidth;
-                            var height = Convert.ToInt32(Math.Round((decimal)(image.Height / divisor)));
+                            var divisor = (decimal)(image.Width / thumbnailWidth);
+                            var height = Convert.ToInt32(Math.Round((image.Height / divisor)));
 
                             image.Mutate(x => x.Resize(thumbnailWidth, height));
                             image.Save(output, encoder);
