@@ -95,7 +95,7 @@ namespace ImageFunctions
                         using (var output = new MemoryStream())
                         using (Image<Rgba32> image = Image.Load(input))
                         {
-                            var divisor = (decimal)(image.Width / thumbnailWidth);
+                            var divisor = (double)image.Width / (double)thumbnailWidth;
                             var height = Convert.ToInt32(Math.Round((image.Height / divisor)));
 
                             image.Mutate(x => x.Resize(thumbnailWidth, height));
